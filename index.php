@@ -144,8 +144,8 @@
               <h3 class="panel-title"> Consulta 5 </h3>
             </div>
             <div class="panel-body">
-              <p class="text-justify">En esta consulta se muestra todas ONGs y sus movilizaciones, añadiendo el componenete de que
-              dichas movilizacines están ordenadas en orden descendiente </p>
+              <p class="text-justify">En esta consulta se muestra todas las ONGs, luego presionando sobre el nombre de estas, se redirige
+              a otra pagina en donde es mostrado todas las marchas organizadas por dicha ONG </p>
             </div>
           </div>
         </div>

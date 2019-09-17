@@ -3,41 +3,37 @@
 
 <body>
 
-  <?php
-
+    <?php
     require("../config/conexion.php");
 
-    $query = "SELECT ongs.nombre, movilizaciones.id, movilizaciones.nombre_proyecto, movilizaciones.presupuesto, movilizaciones.tipo
-  	FROM ongs, movilizaciones
-  	WHERE ongs.nombre = movilizaciones.ong
-  	ORDER BY ongs.nombre, movilizaciones.presupuesto DESC;";
+    $query = "SELECT nombre FROM ongs ORDER BY nombre ASC;";
     $result = $db -> prepare($query);
     $result -> execute();
     $ongs = $result -> fetchAll();
-    ?>
+
+   ?>
 
 <div class="container">
     <table class="table">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Nombre ONG</th>
-          <th scope="col">Id Movilizacion</th>
-          <th scope="col">Nombre Proyecto</th>
-          <th scope="col">Presuouesto Anual</th>
-          <th scope="col">Tipo de Movilizacion</th>
+          <th scope="col">ONGs</th>
         </tr>
       </thead>
 
       <tbody>
+
         <?php
+
         foreach ($ongs as $ong) {
-          echo "<tr> <td>$ong[0]</td>
-                     <td>$ong[1]</td>
-                     <td>$ong[2]</td>
-                     <td>$ong[3]</td>
-                     <td>$ong[4]</td> </tr>";
+          echo "<tr> <td> <form action='consulta_5_a.php' method='post'>
+            <div class='form group'>
+              <input class='btn btn-secondary' type='submit' name='ong' value='$ong[0]'>
+            </div>
+          </form> </td> </tr>";
         }
-        ?>
+
+       ?>
       </tbody>
 
     </table>
