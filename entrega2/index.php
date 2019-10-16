@@ -168,7 +168,7 @@
               <h3 class="panel-title"> Consulta 6 </h3>
             </div>
             <div class="panel-body">
-              <p class="text-justify">...</p>
+              <p class="text-justify">En esta cnsulta nos dimos cuenta de que no existen consultas para la fecha actual, por ello todos los botones se muestran como consultas vacias. En caso de usar cualquier año mayor o igual a 2019 y cualquier mes menor a septiembre, si exisitiran consultas asociadas. </p>
             </div>
           </div>
         </div>
