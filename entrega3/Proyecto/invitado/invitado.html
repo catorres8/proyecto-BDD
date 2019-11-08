@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+    
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=devide-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <title>Grupo 76-87</title>
+    </head>
+    
+    <body>
+        #Parte principal del código, redirecciona a todos lados
+        <div >
+            
+                <h1 class="text-center"> Sesión iniciada como invitado</h1>
+            
+        </div>
+
+        <div>
+            <form role="form" action="../all_proyects.php" method="post">
+                <input class="btn btn-primary form-control" 
+                       type="submit" name="all_proyectos" 
+                       value="Ver todos los proyectos">
+            </form>
+        </div>
+        <div>
+            <div>
+                <h3 class="text-center"> Filtrado por tipo:</h3>
+            </div>
+        </div>
+
+        <div >
+            <form role="form" action="../proyectos_selectivos.php" method="post">
+                <input class="btn btn-primary form-control" 
+                       type="submit" name="proyectos_minas" 
+                       value="Ver proyectos tipo Mina">
+            </form>
+        </div>
+        <br></br>
+        <div>
+            <form role="form" action="../proyectos_selectivos.php" method="post">
+                <input class="btn btn-primary form-control" 
+                       type="submit" name="proyectos_central" 
+                       value="Ver proyectos tipo Central">
+            </form>
+        </div>
+        <br></br> 
+
+        <div class="conteiner">
+            <form role="form" action="../proyectos_selectivos.php" method="post">
+                <input class="btn btn-primary form-control" 
+                       type="submit" name="proyectos_vertedero" 
+                       value="Ver proyectos tipo Vertedero">
+            </form>
+        </div>
+
+
+        <h3>Método de búsqueda proyectos</h3>
+        <form role="form" action="../proyectos_selectivos.php" method="post">
+            <div class="form group">
+                <label>Fecha inicio</label>
+                <input class="form-control" type="text" 
+                       name="texto_busqueda_proyectos" 
+                       placeholder="Inserta el nombre del proyecto.">
+            </div>
+
+            <input class="btn btn-primary form-control" type="submit" 
+                   name="boton_busqueda" value="CONSULTAR">
+        </form>
+
+        <h3>Método de búsqueda Ongs</h3>
+        <form role="form" action="../nombres_ongs.php" method="post">
+            <div class="form group">
+                <label>Fecha inicio</label>
+                <input class="form-control" type="text" 
+                       name="texto_busqueda_ongs" 
+                       placeholder="Inserta el nombre de la ong.">
+            </div>
+
+            <input class="btn btn-primary form-control" type="submit" 
+                   name="boton_busqueda_ongs" value="CONSULTAR Ongs">
+        </form>
+
+        <h3>Método de búsqueda Recursos</h3>
+        <form role="form" action="../buscador_recursos.php" method="post">
+            <div class="form group">
+                <label>Fecha inicio</label>
+                <input class="form-control" type="text" 
+                       name="texto_busqueda_recursos" 
+                       placeholder="Inserta el nombre del recurso.">
+            </div>
+
+            <input class="btn btn-primary form-control" type="submit" 
+                   name="boton_busqueda_recursos" value="CONSULTAR Recursos">
+        </form>
+    </body>
+</html>
