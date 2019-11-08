@@ -20,7 +20,7 @@ and open the template in the editor.
 
     <?php
     include 'config/conexion_pruebas.php';
-    $nombre_usuario = (int)$_POST['variable_socio'];
+    $nombre_usuario = (int) $_POST['variable_socio'];
 
 
     echo "El nombre del usuario a buscar es", $nombre_usuario;
@@ -36,10 +36,10 @@ and open the template in the editor.
             <br>                        
             <input class="btn btn-primary form-control" type="submit" 
                    name="boton_socio" value="Continuar">
-            <input type="hidden" name="nombre_usuario" value=<?php echo$nombre_usuario?>>
+            <input type="hidden" name="nombre_usuario" value=<?php echo$nombre_usuario ?>>
             <br>
         </form>
-    <?php
+        <?php
     } else {
         echo "No existen coincidencias, lo que se obtuvo fue", $numero_coincidencias[0];
     }

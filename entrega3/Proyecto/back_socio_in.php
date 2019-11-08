@@ -24,7 +24,7 @@ and open the template in the editor.
 
 
     echo "DE SHORO", key($nombre_boton), $nombre_boton[key($nombre_boton)];
-    
+
 
 
     if ($nombre_boton == 'INSERTAR PROYECTO') {

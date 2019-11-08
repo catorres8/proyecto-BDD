@@ -21,9 +21,9 @@ and open the template in the editor.
     <?php
     include 'config/conexion_pruebas.php';
     $nombre_boton = $_POST;
-    
-    
-    echo "DE SHORO",key($nombre_boton),$nombre_boton[key($nombre_boton)] ;
+
+
+    echo "DE SHORO", key($nombre_boton), $nombre_boton[key($nombre_boton)];
 
 
     if (key($nombre_boton) == 'proyectos_minas') {
@@ -44,7 +44,7 @@ and open the template in the editor.
         echo 'Busqueda proyectos';
     }
     #ACA FALTA VINCULAR A LA BASE DE DATOS
-    $result = $bdd_87 ->prepare($query);
+    $result = $bdd_87->prepare($query);
     $result->execute();
     $proyectos = $result->fetchAll();
     ?>

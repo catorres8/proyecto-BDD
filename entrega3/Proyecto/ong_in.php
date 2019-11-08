@@ -15,53 +15,36 @@ and open the template in the editor.
         <title>Inicio Sesión</title>
     </head>
     <body>
+        <?php
+        $nombre_ong = $_POST['nombre_ong'];
+        ?>
+
 
         <h4 class="center-block"> Bienvenido a tu panel de control</h4> <br> <br>
         <div class="center-block"
-             <form role="form" action="back_socio_in.php" method="post">
-                <label>Crea un nuevo Proyecto</label>
-
-                <input class="form-control" type="text" name="TIPO" 
-                       placeholder="TIPO">
-                <br>
-                <input class="form-control" type="text" name="NOMBRE" 
-                       placeholder="NOMBRE">
-                <br>
-                <input class="form-control" type="text" name="LATITUD" 
-                       placeholder="LATITUD">
-                <br>
-                <input class="form-control" type="text" name="LONGITUD" 
-                       placeholder="LONGITUD">
-                <br>
-                <input class="form-control" type="text" name="REGION" 
-                       placeholder="REGION">
-                <br>
-                <input class="form-control" type="text" name="COMUNA" 
-                       placeholder="COMUNA">
-                <br>
-                <input class="form-control" type="text" name="APERTURA" 
-                       placeholder="APERTURA">
-                <br>
-                <input class="form-control" type="text" name="OPERATIVA"
-                       placeholder="OPERATIVA">
+             <form role="form" action="back_ong_in.php" method="post">
+                <label>Ver Movilizaciones</label>
                 <br>
                 <input type="hidden" name="nombre_usuario" 
-                       value= <?php echo $_POST["nombre_usuario"] ?> >
+                       value= <?php echo $nombre_ong ?> >
                 <br>
                 <input class="btn btn-primary form-control" type="submit" 
-                       name="boton" value="INSERTAR PROYECTO">
+                       name="boton" value="Ver movilizaciones">
                 <br>
             </form>
         </div>
         <div
             <form role="form" action="back_socio_in.php" method="post">
-                <label>Asocia tu nombre a un proyecto preexistente</label>
+                <label>PLANIFICADOR DE MOVILIZACIONES</label>
 
-                <input class="form-control" type="text" name="nombre_proyecto" 
-                       placeholder="Nombre del Proyecto">
+                <input class="form-control" type="text" name="comuna_movilizacion" 
+                       placeholder="Ingresa comuna">
+                <br>
+                <input class="form-control" type="text" name="presupuesto_movilizacion" 
+                       placeholder="Ingresa presupuesto">
                 <br>
                 <input type="hidden" name="nombre_usuario" 
-                       value= <?php echo $_POST["nombre_usuario"]?> >
+                       value= <?php echo $_POST["nombre_usuario"] ?> >
                 <br>
                 <input class="btn btn-primary form-control" type="submit" 
                        name="boton" value="Agregar mi nombre">
@@ -70,5 +53,5 @@ and open the template in the editor.
         </div>
 
 
-</body>
+    </body>
 </html>

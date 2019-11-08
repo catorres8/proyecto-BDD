@@ -61,7 +61,7 @@ and open the template in the editor.
                        placeholder="Nombre del Proyecto">
                 <br>
                 <input type="hidden" name="nombre_usuario" 
-                       value= <?php echo $_POST["nombre_usuario"]?> >
+                       value= <?php echo $_POST["nombre_usuario"] ?> >
                 <br>
                 <input class="btn btn-primary form-control" type="submit" 
                        name="boton" value="Agregar mi nombre">
@@ -70,5 +70,5 @@ and open the template in the editor.
         </div>
 
 
-</body>
+    </body>
 </html>
