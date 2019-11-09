@@ -28,25 +28,25 @@ and open the template in the editor.
 
 
     if ($nombre_boton == 'mina') {
-        $query = "SELECT * FROM proyectos WHERE p_tipo = 1 ";
+        $query = "SELECT p_id, p_nombre_, p_tipo FROM proyectos WHERE p_tipo = 1 ";
         echo 'MINAS';
     }
     if ($nombre_boton == 'central') {
-        $query = "SELECT * FROM proyectos WHERE p_tipo = 2 ";
+        $query = "SELECT p_id, p_nombre_, p_tipo FROM proyectos WHERE p_tipo = 2 ";
         echo 'CENTRAL';
     }
     if ($nombre_boton == 'vertedero') {
-        $query = "SELECT * FROM proyectos WHERE p_tipo = 3 ";
+        $query = "SELECT p_id, p_nombre_, p_tipo FROM proyectos WHERE p_tipo = 3 ";
         echo 'VERTEDERO';
     }
-    if ($nombre_boton == 'busqueda_proyectos') {
+    if ($nombre_boton == 'texto_busqueda_proyectos') {
         $texto_busqueda_proyectos = $_POST["texto_busqueda_proyectos"];
-        $query = "SELECT * FROM proyectos WHERE p_nombre LIKE '%$texto_busqueda_proyectos%';";
-        echo $texto_busqueda_proyectos;
+        $query = "SELECT p_id, p_nombre_, p_tipo FROM proyectos WHERE proyectos.nombre LIKE '%$texto_busqueda_proyectos%'; ";
+        echo 'Busqueda proyectos';
     }
     #ACA FALTA VINCULAR A LA BASE DE DATOS
     $result = $db2->prepare($query);
-    $result->execute();
+    $result -> execute();
     $proyectos = $result->fetchAll();
     ?>
 
@@ -65,7 +65,7 @@ and open the template in the editor.
         <tbody>
 
             <?php
-            # AquÃ­ falta poner cada una de las cosas en su columna respectiva
+            # Aquí falta poner cada una de las cosas en su columna respectiva
             foreach ($proyectos as $proyecto) {
                 echo "<tr> <td> $proyecto[0] </td>"
                         . " <td> $proyecto[1] </td>"
