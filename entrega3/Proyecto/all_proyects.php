@@ -39,9 +39,9 @@ and open the template in the editor.
 
             <?php
             foreach ($proyectos as $proyecto) {
-              echo "<tr> <td> <form action='consulta_5_a.php' method='post'>
+              echo "<tr> <td> <form action='proyect.php' method='post'>
                 <div class='form group'>
-                  <input class='btn btn-secondary' type='submit' name='ong' value='$ong[0]'>
+                  <input class='btn btn-secondary' type='submit' name='proyecto' value='$proyecto[0]'>
                 </div>
               </form> </td> </tr>";
             }
