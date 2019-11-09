@@ -18,9 +18,9 @@ and open the template in the editor.
 
 
     <?php
-    include 'config/conexion_cris.php';
-    $query = "SELECT p_nombre FROM proyectos;";
-    $result = $db2->prepare($query);
+    include 'config/conexion_pruebas.php';
+    $query = "SELECT nombre FROM proyectos";
+    $result = $bdd->prepare($query);
     $result->execute();
     $proyectos = $result->fetchAll();
     ?>
@@ -31,19 +31,18 @@ and open the template in the editor.
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Proyectos</th>
+                <th scope="col">Id</th>
+                 <th scope="col">Nombre Proyecto</th>
+                  <th scope="col">tipo</th>
             </tr>
         </thead>
 
         <tbody>
 
             <?php
+            # Aquí falta poner cada una de las cosas en su columna respectiva
             foreach ($proyectos as $proyecto) {
-              echo "<tr> <td> <form action='proyect.php' method='post'>
-                <div class='form group'>
-                  <input class='btn btn-secondary' type='submit' name='proyecto' value='$proyecto[0]'>
-                </div>
-              </form> </td> </tr>";
+                echo "<tr> <td> $proyecto[0] </td></tr>";
             }
             ?>
         </tbody>

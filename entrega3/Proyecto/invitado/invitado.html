@@ -40,16 +40,18 @@ and open the template in the editor.
         <div >
             <form role="form" action="../proyectos_selectivos.php" method="post">
                 <input class="btn btn-primary form-control" 
-                       type="submit" name="proyectos_minas" 
+                       type="submit" name="proyectos" 
                        value="Ver proyectos tipo Mina">
+                <input type="hidden" name="info" value=mina>
             </form>
         </div>
         <br></br>
         <div>
             <form role="form" action="../proyectos_selectivos.php" method="post">
                 <input class="btn btn-primary form-control" 
-                       type="submit" name="proyectos_central" 
+                       type="submit" name="proyectos" 
                        value="Ver proyectos tipo Central">
+                <input type="hidden" name="info" value=central>
             </form>
         </div>
         <br></br> 
@@ -57,8 +59,9 @@ and open the template in the editor.
         <div class="conteiner">
             <form role="form" action="../proyectos_selectivos.php" method="post">
                 <input class="btn btn-primary form-control" 
-                       type="submit" name="proyectos_vertedero" 
+                       type="submit" name="proyectos" 
                        value="Ver proyectos tipo Vertedero">
+                <input type="hidden" name="info" value=vertedero>
             </form>
         </div>
 
@@ -70,6 +73,7 @@ and open the template in the editor.
                 <input class="form-control" type="text" 
                        name="texto_busqueda_proyectos" 
                        placeholder="Inserta el nombre del proyecto.">
+                <input type="hidden" name="info" value='texto_busqueda_proyectos'>
             </div>
 
             <input class="btn btn-primary form-control" type="submit" 

@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>Proyecto\proyectos_selectivos.php
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,35 +16,36 @@ and open the template in the editor.
     </head>
 
 
-    $nombre_boton = $_POST['name']
+    
 
     <?php
-    include 'config/conexion_pruebas.php';
-    $nombre_boton = $_POST;
+    include 'config/conexion_cris.php';
+    $nombre_boton = $_POST['info'];
+    echo $nombre_boton;
 
 
-    echo "DE SHORO", key($nombre_boton), $nombre_boton[key($nombre_boton)];
+    #echo "DE SHORO", $nombre_boton;
 
 
-    if (key($nombre_boton) == 'proyectos_minas') {
+    if ($nombre_boton == 'mina') {
         $query = "SELECT nombre FROM proyectos WHERE p_tipo = 1 ";
         echo 'MINAS';
     }
-    if (key($nombre_boton) == 'proyectos_central') {
+    if ($nombre_boton == 'central') {
         $query = "SELECT nombre FROM proyectos WHERE p_tipo = 2 ";
         echo 'CENTRAL';
     }
-    if (key($nombre_boton) == 'proyectos_vertedero') {
+    if ($nombre_boton == 'vertedero') {
         $query = "SELECT nombre FROM proyectos WHERE p_tipo = 3 ";
         echo 'VERTEDERO';
     }
-    if (key($nombre_boton) == 'texto_busqueda_proyectos') {
+    if ($nombre_boton == 'texto_busqueda_proyectos') {
         $texto_busqueda_proyectos = $_POST["texto_busqueda_proyectos"];
         $query = "SELECT nombre FROM proyectos WHERE proyectos.nombre LIKE '%$texto_busqueda_proyectos%'; ";
         echo 'Busqueda proyectos';
     }
     #ACA FALTA VINCULAR A LA BASE DE DATOS
-    $result = $bdd_87->prepare($query);
+    $result = $db2->prepare($query);
     $result->execute();
     $proyectos = $result->fetchAll();
     ?>

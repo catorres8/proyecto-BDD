@@ -109,10 +109,14 @@
          ?>
       </tbody>
     </table>
+    <nav>
+    <ul class="pagination">
     <?php
     for ($i=1; $i<=$total_pages; $i++) {
-            echo "<a href='proyect.php?page=".$i."' class='yourclass'>".$i."</a>&nbsp;&nbsp;";
+            echo "<li class='page-item'><a href='proyect.php?page=".$i."' class='page-link'>".$i."</a></li>&nbsp;&nbsp;";
     }
     ?>
+    </ul>
+    </nav>
   </body>
 </html>
