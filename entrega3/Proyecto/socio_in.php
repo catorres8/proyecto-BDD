@@ -27,11 +27,11 @@ and open the template in the editor.
             <input class="form-control" type="text" name="NOMBRE" 
                    placeholder="NOMBRE">
             <br>
-            <input class="form-control" type="text" name="LATITUD EN FORMATO DOUBLE" 
-                   placeholder="LATITUD">
+            <input class="form-control" type="text" name="LATITUD" 
+                   placeholder="LATITUD EN FORMATO DOUBLE">
             <br>
-            <input class="form-control" type="text" name="LONGITUD EN FORMATO DOUBLE" 
-                   placeholder="LONGITUD">
+            <input class="form-control" type="text" name="LONGITUD" 
+                   placeholder="LONGITUD EN FORMATO DOUBLE">
             <br>
             <input class="form-control" type="text" name="REGION" 
                    placeholder="REGION">
@@ -39,8 +39,8 @@ and open the template in the editor.
             <input class="form-control" type="text" name="COMUNA" 
                    placeholder="COMUNA">
             <br>
-            <input class="form-control" type="text" name="APERTURA EN FORMATO FECHA" 
-                   placeholder="APERTURA">
+            <input class="form-control" type="text" name="APERTURA" 
+                   placeholder="APERTURA EN FORMATO FECHA">
             <br>
             <input class="form-control" type="text" name="OPERATIVA"
                    placeholder="OPERATIVA">
