@@ -39,7 +39,7 @@
             <h2>Recursos asociados a la ONG</h2>
 
             <?php
-            $query = "SELECT id, numero FROM recursos WHERE ong_asociada = '$ong' ORDER BY id ASC;";
+            $query = "SELECT id, numero FROM recursos WHERE fecha_dictamen = '$ong' ORDER BY id ASC;";
             $result = $db -> prepare($query);
             $result->execute();
             $recursos_asociados = $result->fetchAll();
@@ -63,7 +63,7 @@
           <h2>Movilizaciones que dirige la ONG</h2>
 
           <?php
-          $query = "SELECT nombre_proyecto FROM movilizaciones WHERE ong = '$ong' ORDER BY id ASC;";
+          $query = "SELECT id, nombre_proyecto, tipo FROM movilizaciones WHERE ong = '$ong' ORDER BY id ASC;";
           $result = $db -> prepare($query);
           $result->execute();
           $movilizaciones_asociadas = $result->fetchAll();
@@ -74,7 +74,9 @@
               foreach ($movilizaciones_asociadas as $movilizacion) {
                 echo "<tr> <td> <form action='movilizacion.php' method='post'>
                       <div class='form group'>
-                        Movilizacion contra: <input class='btn btn-link' type='submit' name='movilizacion' value='$movilizacion[0]'>
+                        <input type='hidden' name='id_mov' value='$movilizacion[0]'>
+                        <input type='hidden' name='tipo_mov' value='$movilizacion[2]'>
+                        Movilizacion contra: <input class='btn btn-link' type='submit' value='$movilizacion[1]'>
                       </div>
                       </form> </td> </tr>";
               } ?>

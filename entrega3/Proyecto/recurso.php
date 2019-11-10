@@ -28,7 +28,7 @@
           <?php
           foreach ($recurso_data as $data) {
             $proyecto = $data[2];
-            $ong = $data[10];
+            $ong = $data[11];
             echo "<tr> <th>Id</th> <td>$data[0]</td> </tr>
                        <tr> <th>Número</th> <td>$data[1]</td> </tr>
                        <tr> <th>Causa Contaminante</th> <td>$data[3]</td> </tr>
@@ -38,7 +38,7 @@
                        <tr> <th>Región de Tramitación</th> <td>$data[7]</td> </tr>
                        <tr> <th>Comuna de Tramitación</th> <td>$data[8]</td> </tr>
                        <tr> <th>Status</th> <td>$data[9]</td> </tr>
-                       <tr> <th>Fecha de Dictamen</th> <td>$data[11]</td> </tr>";
+                       <tr> <th>Fecha de Dictamen</th> <td>$data[10]</td> </tr>";
           }
           ?>
         </tbody>

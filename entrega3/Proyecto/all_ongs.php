@@ -12,7 +12,17 @@
   <body>
     <?php
     include 'config/conexion_cris.php';
-    $query = "SELECT nombre FROM ongs";
+
+    $nombre_boton = $_POST;
+    if (key($nombre_boton) == 'all_ongs') {
+        $query = "SELECT nombre FROM ongs;";
+    }
+
+    if (key($nombre_boton) == 'texto_busqueda_ongs') {
+        $texto_busqueda_ongs = $_POST["texto_busqueda_ongs"];
+        $query = "SELECT nombre FROM ongs WHERE nombre LIKE '%$texto_busqueda_ongs%';";
+    }
+
     $result = $db -> prepare($query);
     $result->execute();
     $ongs = $result->fetchAll();
