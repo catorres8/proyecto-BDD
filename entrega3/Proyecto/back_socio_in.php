@@ -19,7 +19,7 @@ and open the template in the editor.
 
 
     <?php
-    include 'config/conexion_pruebas.php';
+    include 'config/conexion_cris.php';
     $nombre_boton = $_POST['boton'];
 
 
@@ -51,7 +51,7 @@ and open the template in the editor.
     }
 
     #ACA FALTA VINCULAR A LA BASE DE DATOS
-    $result = $bdd_87->prepare($query);
+    $result = $db2->prepare($query);
     $result->execute();
     $proyectos = $result->fetchAll();
     ?>

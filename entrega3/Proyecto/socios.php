@@ -19,13 +19,13 @@ and open the template in the editor.
 
 
     <?php
-    include 'config/conexion_pruebas.php';
+    include 'config/conexion_cris.php';
     $nombre_usuario = (int) $_POST['variable_socio'];
 
 
     echo "El nombre del usuario a buscar es", $nombre_usuario;
     $query = "SELECT COUNT(*) FROM sociosdeproyectos WHERE snombre = $nombre_usuario";
-    $result = $bdd_87->prepare($query);
+    $result = $db2->prepare($query);
     $result->execute();
     $numero_coincidencias = $result->fetchAll();
     if ($numero_coincidencias[0] = 0) {

@@ -18,10 +18,10 @@ and open the template in the editor.
 
 
     <?php
-    include 'config/conexion_pruebas.php';
+    include 'config/conexion_cris.php.php';
     $nombre_ong = $_POST['nombre_usuario'];
     $query = "SELECT * FROM movilizaciones WHERE ong = $nombre_ong;";
-    $result = $bdd_76->prepare($query);
+    $result = $db->prepare($query);
     $result->execute();
     $movilizaciones = $result->fetchAll();
     ?>
