@@ -19,8 +19,16 @@ and open the template in the editor.
     <body>
 
     <?php
+
+    $tipo = $_POST["tipo"];
+    if ($tipo == 0) {
+      $query = "SELECT p_nombre FROM proyectos";
+    } else {
+      $query = "SELECT p_nombre FROM proyectos WHERE p_tipo = '$tipo';";
+    }
+
     include 'config/conexion_cris.php';
-    $query = "SELECT p_nombre FROM proyectos";
+
     $result = $db2 -> prepare($query);
     $result->execute();
     $proyectos = $result->fetchAll();

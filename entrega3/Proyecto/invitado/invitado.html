@@ -26,6 +26,7 @@ and open the template in the editor.
 
         <div>
             <form role="form" action="../all_projects.php" method="post">
+                <input type="hidden" name="tipo" value="0">
                 <input class="btn btn-primary form-control"
                        type="submit" name="all_proyectos"
                        value="Ver todos los proyectos">
@@ -44,33 +45,13 @@ and open the template in the editor.
                 <h3 class="text-center"> Filtrado por tipo:</h3>
             </div>
         </div>
-
-        <div >
-            <form role="form" action="../proyectos_selectivos.php" method="post">
-                <input class="btn btn-primary form-control"
-                       type="submit" name="proyectos"
-                       value="Ver proyectos tipo Mina">
-                <input type="hidden" name="info" value=mina>
-            </form>
-        </div>
-        <br></br>
         <div>
-            <form role="form" action="../proyectos_selectivos.php" method="post">
-                <input class="btn btn-primary form-control"
-                       type="submit" name="proyectos"
-                       value="Ver proyectos tipo Central">
-                <input type="hidden" name="info" value=central>
-            </form>
-        </div>
-        <br></br>
-
-        <div class="conteiner">
-            <form role="form" action="../proyectos_selectivos.php" method="post">
-                <input class="btn btn-primary form-control"
-                       type="submit" name="proyectos"
-                       value="Ver proyectos tipo Vertedero">
-                <input type="hidden" name="info" value=vertedero>
-            </form>
+          <form role="form" action="../all_projects.php" method="post">
+          <input type="radio" name="tipo" value="1" checked>Mina <br>
+          <input type="radio" name="tipo" value="2">Central <br>
+          <input type="radio" name="tipo" value="3">Vertedero <br>
+          <input type="submit" value="Ver proyectos filtrados por tipo">
+          </form>
         </div>
 
 
