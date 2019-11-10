@@ -55,7 +55,7 @@ and open the template in the editor.
 
         <div
             <form role="form" action="back_socio_in.php" method="post">
-                <label>PLANIFICACIÓN AUTOMÁTICA</label>
+                <label>Asociación a Proyectos</label>
 
                 <input class="form-control" type="text" name="nombre_proyecto" 
                        placeholder="Nombre del Proyecto">
