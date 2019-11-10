@@ -32,31 +32,34 @@
           ?>
         </tbody>
       </table>
+
       <div class="container">
-        <div class="col-md-6">
-          <h2>Recursos asociados a la ONG</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <h2>Recursos asociados a la ONG</h2>
 
-          <?php
-          $query = "SELECT numero FROM recursos WHERE ong_asociada = '$ong' ORDER BY id ASC;";
-          $result = $db -> prepare($query);
-          $result->execute();
-          $recursos_asociados = $result->fetchAll();
-          ?>
-          <table class="table table-striped">
-            <tbody>
-              <?php
-              foreach ($recursos_asociados as $recurso) {
-                echo "<tr> <td> <form action='recurso.php' method='post'>
-                      <div class='form group'>
-                        Recurso nro: <input class='btn btn-link' type='submit' name='recurso' value='$recurso[0]'>
-                      </div>
-                      </form> </td> </tr>";
-              } ?>
-            </tbody>
-          </table>
+            <?php
+            $query = "SELECT id, numero FROM recursos WHERE ong_asociada = '$ong' ORDER BY id ASC;";
+            $result = $db -> prepare($query);
+            $result->execute();
+            $recursos_asociados = $result->fetchAll();
+            ?>
+            <table class="table table-striped">
+              <tbody>
+                <?php
+                foreach ($recursos_asociados as $recurso) {
+                  echo "<tr> <td> <form action='recurso.php' method='post'>
+                  <div class='form group'>
+                  <input type='hidden' name='id_recurso' value='$recurso[0]'>
+                   Recurso nro: <input class='btn btn-link' type='submit' value='$recurso[1]'>
+                 </div>
+                  </form> </td> </tr>";
+                } ?>
+              </tbody>
+            </table>
 
-        </div>
-        <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
           <h2>Movilizaciones que dirige la ONG</h2>
 
           <?php
@@ -78,6 +81,8 @@
             </tbody>
           </table>
         </div>
+        </div>
       </div>
+
   </body>
 </html>

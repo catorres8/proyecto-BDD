@@ -14,9 +14,9 @@
 
       include 'config/conexion_cris.php';
 
-      $numero_recurso = $_POST['recurso'];
+      $id_recurso = $_POST['id_recurso'];
 
-      $query = "SELECT * FROM recursos WHERE numero = '$numero_recurso';";
+      $query = "SELECT * FROM recursos WHERE id = '$id_recurso';";
       $result = $db -> prepare($query);
       $result -> execute();
       $recurso_data = $result -> fetchAll();
@@ -30,7 +30,7 @@
             $proyecto = $data[2];
             $ong = $data[10];
             echo "<tr> <th>Id</th> <td>$data[0]</td> </tr>
-                       <tr> <th>Número</th> <td>$$data[1]</td> </tr>
+                       <tr> <th>Número</th> <td>$data[1]</td> </tr>
                        <tr> <th>Causa Contaminante</th> <td>$data[3]</td> </tr>
                        <tr> <th>Area Influencia</th> <td>$data[4]</td> </tr>
                        <tr> <th>Descripción</th> <td>$data[5]</td> </tr>
@@ -44,27 +44,29 @@
         </tbody>
       </table>
       <div class="container">
-        <div class="col-md-6">
-          <h2>Proyecto</h2>
-          <?php
-          echo "<tr> <td> <form action='project_profile.php' method='post'>
-                <div class='form group'>
-                  <input class='btn btn-link' type='submit' name='proyecto' value='$proyecto'>
-                </div>
-                </form> </td> </tr>";
-          ?>
+        <div class="row">
+          <div class="col-md-6">
+            <h2>Proyecto</h2>
+            <?php
+            echo "<tr> <td> <form action='project_profile.php' method='post'>
+                  <div class='form group'>
+                    <input class='btn btn-link' type='submit' name='proyecto' value='$proyecto'>
+                  </div>
+                  </form> </td> </tr>";
+            ?>
 
-        </div>
-        <div class="col-md-6">
-          <h2>ONG</h2>
-          <?php
-          echo "<tr> <td> <form action='ong_profile.php' method='post'>
-                <div class='form group'>
-                  <input class='btn btn-link' type='submit' name='ong' value='$ong'>
-                </div>
-                </form> </td> </tr>";
-           ?>
+          </div>
+          <div class="col-md-6">
+            <h2>ONG</h2>
+            <?php
+            echo "<tr> <td> <form action='ong_profile.php' method='post'>
+                  <div class='form group'>
+                    <input class='btn btn-link' type='submit' name='ong' value='$ong'>
+                  </div>
+                  </form> </td> </tr>";
+             ?>
 
+          </div>
         </div>
       </div>
   </body>

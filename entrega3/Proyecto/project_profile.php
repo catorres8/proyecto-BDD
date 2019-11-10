@@ -53,7 +53,7 @@
     <h2>Recursos asociados al proyecto</h2>
 
     <?php
-    $qry = "SELECT numero FROM recursos WHERE nombre = '$proyecto' ORDER BY id ASC;";
+    $qry = "SELECT id, numero FROM recursos WHERE nombre = '$proyecto' ORDER BY id ASC;";
     $result = $db -> prepare($qry);
     $result -> execute();
     $recursos = $result -> fetchAll();
@@ -65,7 +65,8 @@
          foreach ($recursos as $recurso) {
            echo "<tr> <td> <form action='recurso.php' method='post'>
                  <div class='form group'>
-                   Recurso nro: <input class='btn btn-link' type='submit' name='recurso' value='$recurso[0]'>
+                  <input type='hidden' name='id_recurso' value='$recurso[0]'>
+                   Recurso nro: <input class='btn btn-link' type='submit' value='$recurso[1]'>
                  </div>
                  </form> </td> </tr>";
          } ?>

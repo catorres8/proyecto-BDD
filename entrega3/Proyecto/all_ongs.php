@@ -11,9 +11,9 @@
     </head>
   <body>
     <?php
-    include 'config/conexion_pruebas.php';
+    include 'config/conexion_cris.php';
     $query = "SELECT nombre FROM ongs";
-    $result = $db->prepare($query);
+    $result = $db -> prepare($query);
     $result->execute();
     $ongs = $result->fetchAll();
     ?>
