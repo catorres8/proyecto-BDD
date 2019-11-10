@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>Proyecto\proyectos_selectivos.php
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,51 +16,35 @@ and open the template in the editor.
     </head>
 
 
+    <body>
 
     <?php
-    include 'config/conexion_pruebas.php';
-    $nombre_boton = $_POST;
-
-
-     if (key($nombre_boton) == 'texto_busqueda_recursos') {
-        $texto_busqueda_recursos = $_POST["texto_busqueda_recursos"];
-        $query = "SELECT id, nombre FROM Ongs WHERE Ongs.nombre LIKE '%$texto_busqueda_recursos%' ";
-        echo 'Busqueda Recursos';
-    }
-    #ACA FALTA VINCULAR A LA
-    #OTRA BASE DE DATOS
-    $result = $db->prepare($query);
-    #$result->execute();
-    $recursos = $result->fetchAll();
+    include 'config/conexion_cris.php';
+    $query = "SELECT p_nombre FROM proyectos";
+    $result = $db2 -> prepare($query);
+    $result->execute();
+    $proyectos = $result->fetchAll();
     ?>
-
-
-
 
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nombre recurso</th>
-
+              <th scope="col">Nombre Proyecto</th>
             </tr>
         </thead>
-
         <tbody>
-
             <?php
             # Aquí falta poner cada una de las cosas en su columna respectiva
-            foreach ($recursos as $recurso) {
-                echo "<tr> <td> $recurso[0] </td>"
-                . "<td> $recurso[1] </td></tr>";
+            foreach ($proyectos as $proyecto) {
+              echo "<tr> <td> <form action='project_profile.php' method='post'>
+                    <div class='form group'>
+                      <input class='btn btn-link' type='submit' name='proyecto' value='$proyecto[0]'>
+                    </div>
+                    </form> </td> </tr>";
             }
             ?>
         </tbody>
 
     </table>
-
-
-
-
-
+    </body>
 </html>

@@ -16,7 +16,7 @@ and open the template in the editor.
     </head>
 
 
-    
+
 
     <?php
     include 'config/conexion_cris.php';
@@ -67,9 +67,9 @@ and open the template in the editor.
             <?php
             # Aquí falta poner cada una de las cosas en su columna respectiva
             foreach ($proyectos as $proyecto) {
-                echo "<tr> <td> $proyecto[0] </td>"
-                        . " <td> $proyecto[1] </td>"
-                        . " <td> $proyecto[2] </td></tr>";
+                echo "<tr> <td> $proyecto[0] </td>
+                           <td> $proyecto[2] </td>
+                           <td> $proyecto[1] </td></tr>";
             }
             ?>
         </tbody>
