@@ -19,16 +19,16 @@ and open the template in the editor.
 
 
     <?php
-    include 'config/conexion_cris.php';
-    $nombre_usuario = (int) $_POST['variable_socio'];
+    require 'config/conexion_cris.php';
+    $nombre_usuario = $_POST['variable_socio'];
 
 
     echo "El nombre del usuario a buscar es", $nombre_usuario;
-    $query = "SELECT COUNT(*) FROM sociosdeproyectos WHERE snombre = $nombre_usuario";
+    $query = "SELECT COUNT(*) FROM sociosdeproyectos WHERE snombre = '$nombre_usuario'";
     $result = $db2->prepare($query);
     $result->execute();
     $numero_coincidencias = $result->fetchAll();
-    if ($numero_coincidencias[0] = 0) {
+    if ($numero_coincidencias[0] != 0) {
         echo "Acceso concedido, bienvenido", $nombre_usuario;
         ?>
         <form role="form" action="socio_in.php" method="post">

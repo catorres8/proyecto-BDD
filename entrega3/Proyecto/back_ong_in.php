@@ -18,9 +18,9 @@ and open the template in the editor.
 
 
     <?php
-    include 'config/conexion_cris.php.php';
-    $nombre_ong = $_POST['nombre_usuario'];
-    $query = "SELECT * FROM movilizaciones WHERE ong = $nombre_ong;";
+    require 'config/conexion_cris.php';
+    $nombre_ong = $_POST['nombre_ong'];
+    $query = "SELECT * FROM movilizaciones WHERE ong = '$nombre_ong';";
     $result = $db->prepare($query);
     $result->execute();
     $movilizaciones = $result->fetchAll();
