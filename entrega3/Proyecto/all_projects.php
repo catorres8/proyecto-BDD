@@ -23,9 +23,14 @@ and open the template in the editor.
     $tipo = $_POST["tipo"];
     if ($tipo == 0) {
       $query = "SELECT p_nombre FROM proyectos";
+    } elseif ($tipo == 4) {
+      $texto_busqueda_proyectos = $_POST["texto_busqueda_proyectos"];
+      $query = "SELECT p_nombre FROM proyectos WHERE p_nombre LIKE '%$texto_busqueda_proyectos%';";
+
     } else {
       $query = "SELECT p_nombre FROM proyectos WHERE p_tipo = '$tipo';";
     }
+
 
     include 'config/conexion_cris.php';
 

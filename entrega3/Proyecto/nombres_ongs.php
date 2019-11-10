@@ -15,63 +15,52 @@ and open the template in the editor.
         <title>Grupo 76-87</title>
     </head>
 
-
-    $nombre_boton = $_POST['name']
+    <body>
 
     <?php
-    include 'config/conexion_pruebas.php';
+    include 'config/conexion_cris.php';
+
     $nombre_boton = $_POST;
 
     echo "DE SHORO", key($nombre_boton);
 
 
     if (key($nombre_boton) == 'all_ongs') {
-    $query = "SELECT id, nombre FROM ongs;";
-    echo 'all_ongs';
+        $query = "SELECT id, nombre FROM ongs;";
     }
 
-    if (key($nombre_boton) == 'texto_busqueda_ongs') {
+    if (key($nombre_boton) == 'boton_busqueda_ongs') {
         $texto_busqueda_ongs = $_POST["texto_busqueda_ongs"];
         $query = "SELECT nombre FROM Ongs WHERE Ongs.nombre LIKE '%$texto_busqueda_ongs%' ";
-        echo 'Busqueda Ongs';
     }
-    
-     
-    
-    #ACA FALTA VINCULAR A LA 
-    #OTRA BASE DE DATOS
-    $result = $bdd_76 ->prepare($query);
-    #$result->execute();
+
+
+    $result = $db ->prepare($query);
+    $result->execute();
     $ongs = $result->fetchAll();
     ?>
-
-
-
 
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nombre Ong</th>
-
+              <th scope="col">Nombre ONG</th>
             </tr>
         </thead>
-
         <tbody>
-
             <?php
-            # Aquí falta poner cada una de las cosas en su columna respectiva
             foreach ($ongs as $ong) {
-                echo "<tr> <td> $ong[0] </td>"
-                .         "<td> $ong[1] </td></tr>";
+              echo "<tr> <td> <form action='ong_profile.php' method='post'>
+                    <div class='form group'>
+                      <input class='btn btn-link' type='submit' name='ong' value='$ong[0]'>
+                    </div>
+                    </form> </td> </tr>";
             }
             ?>
         </tbody>
-
     </table>
 
 
-
+</body>
 
 
 </html>

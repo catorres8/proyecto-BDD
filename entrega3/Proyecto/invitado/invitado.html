@@ -36,7 +36,7 @@ and open the template in the editor.
         <div>
             <form role="form" action="../all_ongs.php" method="post">
                 <input class="btn btn-primary form-control"
-                       type="submit" name="all_proyectos"
+                       type="submit" name="all_ongs"
                        value="Ver todas las ongs">
             </form>
         </div>
@@ -56,13 +56,13 @@ and open the template in the editor.
 
 
         <h3>Método de búsqueda proyectos</h3>
-        <form role="form" action="../proyectos_selectivos.php" method="post">
+        <form role="form" action="../all_projects.php" method="post">
             <div class="form group">
-                <label>Fecha inicio</label>
+                <label>Nombre proyecto</label>
                 <input class="form-control" type="text"
                        name="texto_busqueda_proyectos"
                        placeholder="Inserta el nombre del proyecto.">
-                <input type="hidden" name="info" value='busqueda_proyectos'>
+                <input type="hidden" name="tipo" value="4">
             </div>
 
             <input class="btn btn-primary form-control" type="submit"
@@ -70,9 +70,9 @@ and open the template in the editor.
         </form>
 
         <h3>Método de búsqueda Ongs</h3>
-        <form role="form" action="../nombres_ongs.php" method="post">
+        <form role="form" action="../all_ongs.php" method="post">
             <div class="form group">
-                <label>Fecha inicio</label>
+                <label>Nombre ONG</label>
                 <input class="form-control" type="text"
                        name="texto_busqueda_ongs"
                        placeholder="Inserta el nombre de la ong.">
@@ -85,10 +85,10 @@ and open the template in the editor.
         <h3>Método de búsqueda Recursos</h3>
         <form role="form" action="../buscador_recursos.php" method="post">
             <div class="form group">
-                <label>Fecha inicio</label>
+                <label>Nro de recurso</label>
                 <input class="form-control" type="text"
                        name="texto_busqueda_recursos"
-                       placeholder="Inserta el nombre del recurso.">
+                       placeholder="Inserta el numero del recurso.">
             </div>
 
             <input class="btn btn-primary form-control" type="submit"
