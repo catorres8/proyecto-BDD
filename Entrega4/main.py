@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, abort, json
-from pymongo import MongoClient
+from pymongo import MongoClient, TEXT
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
@@ -20,7 +20,7 @@ def home():
 
 
 # GET methods
-@app.route('/messages/<id>', methods=['GET'])
+@app.route('/messages/:<string:id>', methods=['GET'])
 def r_messages(id):
     '''
     Para llamar a mensajes
@@ -32,9 +32,9 @@ def r_messages(id):
     return json.jsonify(mails)
 
 
-@app.route('/messages/project_search?<project>', methods=['GET'])
+@app.route('/messages/project-search/<string:nombre_proyecto>', methods=['GET'])
 def project_search(nombre_proyecto):
-    # Encontrar todos los correos enviados o recibidos por el projecto
+    #Encontrar todos los correos enviados o recibidos por el projecto
     mongodb = client[MONGODATABASE]
     mensajes = mongodb.mensajes
     mails = []
@@ -46,14 +46,45 @@ def project_search(nombre_proyecto):
     return json.jsonify(mails)
 
 
-@app.route('/messages/content_search?<content>', methods=['GET'])
-def content_search(content):
-    # ...
-    mails = None
-    return json.jsonify(mails)
+@app.route('/messages/content-search', methods=['GET'])
+def content_search():
+    mongodb = client[MONGODATABASE]
+    mensajes = mongodb.mensajes
+    mensajes.create_index([('message', TEXT)])
+    data = request.get_json()
+    contenido = data['required'] #Para las frases
 
+    frase_buscar = ""
+    lista_frases = contenido.split("-")
+    for frase in lista_frases:
+        frase_separada = frase.split(" ")
+        frase_mongo = '\"'
+        for palabra in frase_separada:
+            frase_mongo = frase_mongo + " " + palabra
+            frase_mongo += '\"'
+        frase_buscar += frase_mongo + " "
+    ####
+    palabras_no_deseadas = data['forbidden']
+    palabras_deseadas = data['desired']
+    palabras_no_deseadas_search = ""
+    palabras_deseadas_search = ""
+    palabras_no_deseadas = palabras_no_deseadas.split("_")
+    palabras_deseadas = palabras_deseadas.split("_")
+    for word in palabras_deseadas:
+        palabras_deseadas_search += word + " "
+    for word in palabras_no_deseadas:
+        palabras_no_deseadas_search += "-" + word + " "
+    words_search = palabras_deseadas_search + " " + palabras_no_deseadas
 
+    mails = []
+    for m in mensajes.find({'$and': [{'$text': {'$search': words_search}},
+                                        {'$text': {'$search': frase_buscar}}]}):
+        mails.append(m)
 
+    if len(mails) == 0:
+        return json.jsonify(), 404
+    else:
+        return json.jsonify(mails), 200
 # POST methods
 @app.route('/messages', methods=['POST'])
 def w_messages():
@@ -123,13 +154,16 @@ def check_receiver(metadata):
     return False
 
 # DELETE methods
-@app.route('/messages/<int:uid>', methods=['DELETE'])
+@app.route('/messages/<string:id>', methods=['DELETE'])
 def d_messages(id):
     mongodb = client[MONGODATABASE]
     mensajes = mongodb.mensajes
-    mensajes.remove({"uid": id}, {"msj.content": 1})
+    mail_borrado = mensajes.delete_one({"id": id})
+    if mail_borrado.deleted_count == 0:
+        return json.jsonify(), 404
+    else:
+        return json.jsonify("Eliminado"), 200
 
-    return json.jsonify(mails)
 
 
 
