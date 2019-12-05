@@ -15,12 +15,10 @@ usuarios = db.usuarios
 app = Flask(__name__)
 
 @app.route('/')
-
 def home():
     return '<h1>HELLO WORLD</h1>'
 
 @app.route('/plot')
-
 def route():
     users = usuarios.find({},{'_id':0})
     df = d.DataFrame(list(users)).set_index('name')
@@ -29,22 +27,32 @@ def route():
     plt.savefig(pth)
     return render_template('plot.html')
 
+# Recibir id mensaje y retornar info mensaje
+@app.route('/messages/<string:message_id>', methods=['GET'])
+def message_info(message_id):
+    mongodb = client[MONGODATABASE]
+    mensajes = mongodb.mensajes
+    output = mensajes.find_one({"_id": ObjectId(message_id)}, {"_id": 0})
+    if not output:
+        print(message_id)
+        return json.jsonify(), 404
+    else:
+        return json.jsonify(output), 200
+        # return JSONEncoder().encode(output), 200
+#############################################
 @app.route('/users')
-
 def get_users():
 
     resultados = [u for u in usuarios.find({},{'_id':0})]
     return json.jsonify(resultados)
 
 @app.route('/users/<int:uid>')
-
 def get_user(uid):
 
     users = list(usuarios.find({'uid':uid},{'_id':0}))
     return json.jsonify(users)
 
 @app.route('/users', methods = ['POST'])
-
 def create_user():
 
     data = {key: request.json[key] for key in USER_KEYS}
@@ -60,7 +68,6 @@ def create_user():
     return json.jsonify({'success': success, 'message': message})
 
 @app.route('/users/<int:uid>', methods = ['DELETE'])
-
 def delete_many_user():
 
     if not request.json:
@@ -73,7 +80,6 @@ def delete_many_user():
     return json.jsonify({'result': 'success', 'message': message})
 
 @app.route('/test')
-
 def test():
 
     param = request.args.get('name', False)
@@ -83,7 +89,7 @@ def test():
     body = request.data
     print('Body', body)
     return "OK"
-
+###########################################
 if os.name == 'nt':
     app.run()
 
