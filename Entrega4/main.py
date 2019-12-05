@@ -124,8 +124,13 @@ def check_receiver(metadata):
 
 # DELETE methods
 @app.route('/messages/<int:uid>', methods=['DELETE'])
-def d_messages():
-    return
+def d_messages(id):
+    mongodb = client[MONGODATABASE]
+    mensajes = mongodb.mensajes
+    mensajes.remove({"uid": id}, {"msj.content": 1})
+
+    return json.jsonify(mails)
+
 
 
 if __name__ == '__main__':
