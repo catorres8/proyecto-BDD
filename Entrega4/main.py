@@ -18,23 +18,35 @@ app = Flask(__name__)
 def home():
     return '<h1>HELLO WORLD</h1>'
 
+
 # GET methods
-@app.route('/messages/<id>')
+@app.route('/messages/<id>', methods=['GET'])
 def r_messages(id):
+    '''
+    Para llamar a mensajes
+    solo usar variable mensajes
+    '''
+    mongodb = client[MONGODATABASE]
+    mensajes = mongodb.mensajes
     mails = list(mensajes.find({'id': id}, {}))
     return json.jsonify(mails)
 
-@app.route('/messages/project_search?<project>')
+
+@app.route('/messages/project_search?<project>', methods=['GET'])
 def project_search(project):
-    # Encontrar todos los cprreos enviados o recibidos por el projecto
+    # Encontrar todos los correos enviados o recibidos por el projecto
+
     mails = None
     return json.jsonify(mails)
 
-@app.route('/messages/content_search?<content>')
+
+@app.route('/messages/content_search?<content>', methods=['GET'])
 def content_search(content):
     # ...
     mails = None
     return json.jsonify(mails)
+
+
 
 # POST methods
 @app.route('/messages', methods=['POST'])
@@ -115,15 +127,14 @@ if __name__ == '__main__':
 
 
 
-    MONGODATABASE = "test"
+    MONGODATABASE = "test" #Recordar cambiar test por Grupo76
     MONGOSERVER = "localhost"
     MONGOPORT = 27017
     client = MongoClient(MONGOSERVER, MONGOPORT)
     mongodb = client[MONGODATABASE]
 
-    usuarios = mongodb.usuarios
-    mensajes = mongodb.mensajes
-    productos = mongodb.productos
+    mensajes = mongodb.mensajes #Esto funciona pensando en que el importado está hecho
+
 
     qfilter = mensajes.find({'mid': 1})
     for mensaje in qfilter:
