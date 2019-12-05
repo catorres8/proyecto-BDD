@@ -90,68 +90,93 @@ def content_search():
 def w_messages():
     try:
         metadata = request.json["metadata"]
-        check_metadata(metadata)
+        time_status, sender_status, receiver_status = check_metadata(metadata)
     except Exception as e:
         print(e)
     try:
         content = request.json["content"]
+        content_status = [True, "Parametro 'content' verificado"]
         if type(content) != str:
-            raise TypeError
+            content_status[0] = False
+            content_status[1] = "El tipo del parametro 'content' no es string"
     except Exception as e:
         print(e)
 
-    data = {
-        "content": content,
-        "metadata": metadata
-    }
+    data = {"content": content, "metadata": metadata}
 
-    count = mensajes.count_documents({})
-    data['id'] = str(count + 1)
-    result = mensajes.insert_one(data)
-    if (result):
-        status = "1 mensaje creado"
-        success = True
+    #Cambiar el generador de id
+    new_id, id_status = id_generator()
+    data['id'] = new_id
+
+    if id_status[0] and content_status[0] and time_status[0]:
+        result = mensajes.insert_one(data)
+        if (result):
+            message = "1 mensaje creado"
+            success = True
+        else:
+            message = "No se pudo crear el mensaje"
+            success = False
     else:
-         status = "No se pudo crear el usuario"
-         success = False
-    return json.jsonify({'success': success, 'message': status})
+        message = "No se pudo crear el mensaje"
+        success = False
+    status = {"id_status": id_status,
+              "content_status": content_status,
+              "time_status": time_status,
+              "sender_status": sender_status,
+              "receiver_status": receiver_status}
+    return json.jsonify({'success': success, 'message': message, "status": status})
 
 def check_metadata(metadata):
-    if check_time(metadata):
-        if check_sender(metadata) and check_receiver(metadata):
-            pass
-        elif check_sender(metadata) and not check_receiver(metadata):
-            pass
-        elif not check_sender(metadata) and check_receiver(metadata):
-            pass
-        else:
-            pass
-    else:
-        return False
+    time_status = check_time(metadata)
+    sender_status = check_sender(metadata)
+    receiver_status = check_receiver(metadata)
+
+    return time_status, sender_status, receiver_status
 
 def check_time(metadata):
+    status = [True, "Parametro 'time' verificado"]
     try:
         date_patron = "^([0-9][0-9][0-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$"
         time_patron = "^(2[0-3]|[0-1]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$"
         date, time = metadata["time"].split(" ")
-        if re.fullmatch(date_patron, date) and re.fullmatch(time_patron, time):
-            return True
-        else:
-            return False
     except KeyError:
-        return False
+        return [False, "Mensaje no contiene parametro 'time'"]
+
+    if not (re.fullmatch(date_patron, date) and re.fullmatch(time_patron, time)):
+        status[0] = False
+        status[1] = "Parametro 'time' no cumple con el formato requerido 'AAAA-MM-DD hh:mm:ss'"
+
+    return status
 
 def check_sender(metadata):
+    status = [True, "Parametro 'sender' verificado"]
     if "sender" in metadata.keys():
-        if type(metadata["sender"]) == str:
-            return True
-    return False
+        if type(metadata["sender"]) != str:
+            status[0] = False
+            status[1] = "El tipo del parametro 'sender' no es string"
+    else:
+        status[0] = False
+        status[1] = "Mensaje no contiene parametro 'sender'"
+
+    return status
 
 def check_receiver(metadata):
+    status = [True, "Parametro 'receiver' verificado"]
     if "receiver" in metadata.keys():
-        if type(metadata["receiver"]) == str:
-            return True
-    return False
+        if type(metadata["receiver"]) != str:
+            status[0] = False
+            status[1] = "El tipo del parametro 'receiver' no es string"
+    else:
+        status[0] = False
+        status[1] = "Mensaje no contiene parametro 'receiver'"
+
+    return status
+
+def id_generator():
+    count = mensajes.count_documents({})
+    new_id = str(count + 1)
+
+    return new_id, [True, f"Generado con exito id: {new_id}"]
 
 # DELETE methods
 @app.route('/messages/<string:id>', methods=['DELETE'])
