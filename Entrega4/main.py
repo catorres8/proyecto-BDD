@@ -33,10 +33,16 @@ def r_messages(id):
 
 
 @app.route('/messages/project_search?<project>', methods=['GET'])
-def project_search(project):
+def project_search(nombre_proyecto):
     # Encontrar todos los correos enviados o recibidos por el projecto
+    mongodb = client[MONGODATABASE]
+    mensajes = mongodb.mensajes
+    mails = []
+    for mensaje in mensajes.find({'metadata.sender': nombre_proyecto},{}):
+        mails.append(mensaje)
+    for mensaje in mensajes.find({'metadata.receiver': nombre_proyecto},{}):
+        mails.append(mensaje)
 
-    mails = None
     return json.jsonify(mails)
 
 
