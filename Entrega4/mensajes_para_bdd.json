@@ -71,13 +71,49 @@
             "receiver": "Cris"
         }
     },
+
     {
-        "id": "9",
-        "content": "Ya me aburrí de escribir mensajes de prueba, shao",
-        "metadata": {
-            "time": "2019-12-05 05:20:37",
-            "sender": "Max",
-            "receiver": "Cris"
-        }
-    }
-]
+            "id": "10",
+            "content": "Hola amigo, como estás?",
+            "metadata": {
+                "time": "2019-12-05 05:20:37",
+                "sender": "Max",
+                "receiver": "Cris"
+            }
+    },
+        {
+            "id": "11",
+            "content": "Hola , bien gracias y tu?",
+            "metadata": {
+                "time": "2019-12-05 05:20:37",
+                "sender": "Max",
+                "receiver": "Cris"
+            }
+        },
+        {
+            "id": "12",
+            "content": "Bien también gracias",
+            "metadata": {
+                "time": "2019-12-05 05:20:37",
+                "sender": "Max",
+                "receiver": "Cris"
+            }
+        },
+        {
+            "id": "13",
+            "content": "Amigos yo también estoy bien!",
+            "metadata": {
+                "time": "2019-12-05 05:20:37",
+                "sender": "Max",
+                "receiver": "Cris"
+            }
+        },
+        {
+            "id": "9",
+            "content": "Ya me aburrí de escribir mensajes de prueba, shao",
+            "metadata": {
+                "time": "2019-12-05 05:20:37",
+                "sender": "Max",
+                "receiver": "Cris"
+            }}
+    ]
