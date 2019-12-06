@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": "1",
         "content": "Estamos a fin de semestre y ya estoy muy cansado",
         "metadata": {
             "time": "2019-12-05 05:20:37",
@@ -9,7 +9,7 @@
         }
     },
     {
-        "id": 2,
+        "id": "2",
         "content": "Las protestas son necesarias",
         "metadata": {
             "time": "2019-12-05 05:20:37",
@@ -18,7 +18,7 @@
         }
     },
     {
-        "id": 3,
+        "id": "3",
         "content": "Quiero devolverme a mi casa luego D:",
         "metadata": {
             "time": "2019-12-05 05:20:37",
@@ -27,57 +27,57 @@
         }
     },
     {
-        "id": 4,
+        "id": "4",
         "content": "Se vienen los exámenes y no he estudiado uwu",
         "metadata": {
             "time": "2019-12-05 05:20:37",
             "sender": "Max",
-            "receiver": "Cris",
+            "receiver": "Cris"
         }
     },
     {
-        "id": 5,
+        "id": "5",
         "content": "Nachito Sanchez puro que se pone la capa hmno",
         "metadata": {
             "time": "2019-12-05 05:20:37",
             "sender": "Max",
-            "receiver": "Cris",
+            "receiver": "Cris"
         }
     },
     {
-        "id": 6,
+        "id": "6",
         "content": "awa de owo que parece de ewe pero sabe a uwu",
         "metadata": {
             "time": "2019-12-05 05:20:37",
             "sender": "Max",
-            "receiver": "Cris",
+            "receiver": "Cris"
         }
     },
     {
-        "id": 7,
+        "id": "7",
         "content": "Es idea mía o los memes de insta están cada vez más normies?",
         "metadata": {
             "time": "2019-12-05 05:20:37",
             "sender": "Max",
-            "receiver": "Cris",
+            "receiver": "Cris"
         }
     },
     {
-        "id": 8,
+        "id": "8",
         "content": "Se viene navidad cabros",
         "metadata": {
             "time": "2019-12-05 05:20:37",
             "sender": "Max",
-            "receiver": "Cris",
+            "receiver": "Cris"
         }
     },
     {
-        "id": 9,
+        "id": "9",
         "content": "Ya me aburrí de escribir mensajes de prueba, shao",
         "metadata": {
             "time": "2019-12-05 05:20:37",
             "sender": "Max",
-            "receiver": "Cris",
+            "receiver": "Cris"
         }
     }
 ]

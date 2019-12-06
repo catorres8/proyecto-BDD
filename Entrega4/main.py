@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 import os
 import atexit
 import subprocess
+import re
 
-USER_KEYS = ['name', 'last_name', 'occupation', 'follows', 'age']
 mongod = subprocess.Popen('mongod', stdout = subprocess.DEVNULL)
 atexit.register(mongod.kill)
 client = MongoClient('Localhost')
 db = client['entidades']
-usuarios = db.usuarios
+mensajes = db.mensajes
 app = Flask(__name__)
 
 @app.route('/')
@@ -20,27 +20,29 @@ def home():
 
 
 # GET methods
-@app.route('/messages/:<string:id>', methods=['GET'])
+@app.route('/messages/<string:id>', methods=['GET'])
 def r_messages(id):
     '''
     Para llamar a mensajes
     solo usar variable mensajes
     '''
-    mongodb = client[MONGODATABASE]
-    mensajes = mongodb.mensajes
-    mails = list(mensajes.find({'id': id}, {}))
+    #mongodb = client[MONGODATABASE]
+    #mensajes = mongodb.mensajes
+    mails = list()
+    for mensaje in mensajes.find({"id": id}, {"_id": 0}):
+        mails.append(mensaje)
     return json.jsonify(mails)
 
 
 @app.route('/messages/project-search/<string:nombre_proyecto>', methods=['GET'])
 def project_search(nombre_proyecto):
     #Encontrar todos los correos enviados o recibidos por el projecto
-    mongodb = client[MONGODATABASE]
-    mensajes = mongodb.mensajes
+    #mongodb = client[MONGODATABASE]
+    #mensajes = mongodb.mensajes
     mails = []
-    for mensaje in mensajes.find({'metadata.sender': nombre_proyecto},{}):
+    for mensaje in mensajes.find({'metadata.sender': nombre_proyecto},{"_id": 0}):
         mails.append(mensaje)
-    for mensaje in mensajes.find({'metadata.receiver': nombre_proyecto},{}):
+    for mensaje in mensajes.find({'metadata.receiver': nombre_proyecto},{"_id": 0}):
         mails.append(mensaje)
 
     return json.jsonify(mails)
@@ -48,8 +50,8 @@ def project_search(nombre_proyecto):
 
 @app.route('/messages/content-search', methods=['GET'])
 def content_search():
-    mongodb = client[MONGODATABASE]
-    mensajes = mongodb.mensajes
+    #mongodb = client[MONGODATABASE]
+    #mensajes = mongodb.mensajes
     mensajes.create_index([('message', TEXT)])
     data = request.get_json()
     contenido = data['required'] #Para las frases
@@ -60,31 +62,37 @@ def content_search():
         frase_separada = frase.split(" ")
         frase_mongo = '\"'
         for palabra in frase_separada:
-            frase_mongo = frase_mongo + " " + palabra
+            frase_mongo = frase_mongo + palabra
             frase_mongo += '\"'
-        frase_buscar += frase_mongo + " "
+        frase_buscar += frase_mongo
     ####
     palabras_no_deseadas = data['forbidden']
     palabras_deseadas = data['desired']
     palabras_no_deseadas_search = ""
     palabras_deseadas_search = ""
-    palabras_no_deseadas = palabras_no_deseadas.split("_")
-    palabras_deseadas = palabras_deseadas.split("_")
+    palabras_no_deseadas = palabras_no_deseadas.split(" ")
+    palabras_deseadas = palabras_deseadas.split(" ")
     for word in palabras_deseadas:
         palabras_deseadas_search += word + " "
     for word in palabras_no_deseadas:
-        palabras_no_deseadas_search += "-" + word + " "
-    words_search = palabras_deseadas_search + " " + palabras_no_deseadas
+        palabras_no_deseadas_search += "-" + word
+    words_search = palabras_deseadas_search + " " + palabras_no_deseadas_search
+    print(words_search, "///", frase_buscar)
 
-    mails = []
-    for m in mensajes.find({'$and': [{'$text': {'$search': words_search}},
-                                        {'$text': {'$search': frase_buscar}}]}):
-        mails.append(m)
+    mails1 = set()
+    mails2 = set()
+    for m in mensajes.find({'$text': {'$search': words_search}}):
+        mails1.add(m)
+    for m in mensajes.find({'$text': {'$search': frase_buscar}}):
+        mails2.add(m)
+    print(mails1, "///", mails2)
+    mails = list(mails1 & mails2)
 
     if len(mails) == 0:
         return json.jsonify(), 404
     else:
         return json.jsonify(mails), 200
+
 # POST methods
 @app.route('/messages', methods=['POST'])
 def w_messages():
@@ -181,8 +189,8 @@ def id_generator():
 # DELETE methods
 @app.route('/messages/<string:id>', methods=['DELETE'])
 def d_messages(id):
-    mongodb = client[MONGODATABASE]
-    mensajes = mongodb.mensajes
+    #mongodb = client[MONGODATABASE]
+    #mensajes = mongodb.mensajes
     mail_borrado = mensajes.delete_one({"id": id})
     if mail_borrado.deleted_count == 0:
         return json.jsonify(), 404
@@ -195,8 +203,7 @@ def d_messages(id):
 if __name__ == '__main__':
     app.run()
 
-
-
+"""
     MONGODATABASE = "test" #Recordar cambiar test por Grupo76
     MONGOSERVER = "localhost"
     MONGOPORT = 27017
@@ -209,3 +216,4 @@ if __name__ == '__main__':
     qfilter = mensajes.find({'mid': 1})
     for mensaje in qfilter:
         print(mensaje)
+"""
