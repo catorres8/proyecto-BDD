@@ -28,3 +28,6 @@ A continuación se detallan de manera breve los métodos, y las rutas que estos 
 -```d_messages(id)```: Método que recibe en la url el id de un mail en particular, y lo elimina de la base de datos.
 - **URL**: /messages/<string:id>
 
+Finalmente, queda mencionar como nombramos la base de datos y su collection:
+-DB nombre: grupo76
+-DB collection: mensajes

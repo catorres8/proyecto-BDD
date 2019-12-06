@@ -9,8 +9,9 @@ import re
 
 mongod = subprocess.Popen('mongod', stdout = subprocess.DEVNULL)
 atexit.register(mongod.kill)
-client = MongoClient('Localhost')
-db = client['entidades']
+uri = "mongodb://grupo76:grupo76@gray.ing.puc.cl/grupo76"
+client = MongoClient(uri)
+db = client["grupo76"]
 mensajes = db.mensajes
 app = Flask(__name__)
 
