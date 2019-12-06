@@ -43,7 +43,6 @@ def project_search(nombre_proyecto):
 
     return json.jsonify(mails)
 
-
 @app.route('/messages/content-search', methods=['GET'])
 def content_search():
     mensajes.create_index([('content', "text")])
@@ -53,15 +52,9 @@ def content_search():
     mails = []
     frase_required = required()
     palabras = desired_forbidden()
-    #a = {'$text': {"$and": [{'$search': frase_required}}, {'$search': palabras}]}}
-    #b = {"$and": [{'$text': {'$search': frase_required}}, {'$text': {'$search': palabras}}]}
-    for m in mensajes.find({'$text': {"$and": [{'$search': frase_required}}, {'$search': palabras}]}}, {'_id': 0}):
+    consulta = frase_required + " " + palabras
+    for m in mensajes.find({'$text': {'$search': consulta}}, {'_id': 0}):
         mails.append(m)
-
-    #print(mails_required)
-    #print(mails_d_f)
-
-    #mails = [dic for dic in mails_required if dic in mails_d_f]
 
     if len(mails) == 0:
         return json.jsonify(), 404
@@ -79,17 +72,6 @@ def required():
         else:
             frase_required += f" \"{data[i]}\""
     return frase_required
-    mails = list()
-    forbidden = request.json["forbidden"]
-    for m in mensajes.find({'$text': {'$search': frase_required}}, {'_id': 0}):
-        for f in forbidden:
-            print(m["content"])
-            print(f)
-            if not f in m["content"]:
-                if not m in mails:
-                    mails.append(m)
-
-    return mails
 
 def desired_forbidden():
     data = request.json["desired"]
@@ -111,11 +93,6 @@ def desired_forbidden():
 
     palabras = palabras_desired + palabras_forbidden
     return palabras
-    mails = list()
-    for m in mensajes.find({'$text': {'$search': palabras}}, {'_id': 0}):
-        mails.append(m)
-
-    return mails
 
 # POST methods
 @app.route('/messages', methods=['POST'])
@@ -186,6 +163,10 @@ def check_sender(metadata):
         if type(metadata["sender"]) != str:
             status[0] = False
             status[1] = "El tipo del parametro 'sender' no es string"
+        else:
+            if len(metadata["sender"]) == 0:
+                status[0] = False
+                status[1] = "El parametro 'sender' es un string vacio"
     else:
         status[0] = False
         status[1] = "Mensaje no contiene parametro 'sender'"
@@ -198,6 +179,10 @@ def check_receiver(metadata):
         if type(metadata["receiver"]) != str:
             status[0] = False
             status[1] = "El tipo del parametro 'receiver' no es string"
+        else:
+            if len(metadata["receiver"]) == 0:
+                status[0] = False
+                status[1] = "El parametro 'receiver' es un string vacio"
     else:
         status[0] = False
         status[1] = "Mensaje no contiene parametro 'receiver'"
