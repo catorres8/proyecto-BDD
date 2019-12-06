@@ -26,8 +26,6 @@ def r_messages(id):
     Para llamar a mensajes
     solo usar variable mensajes
     '''
-    #mongodb = client[MONGODATABASE]
-    #mensajes = mongodb.mensajes
     mails = list()
     for mensaje in mensajes.find({"id": id}, {"_id": 0}):
         mails.append(mensaje)
@@ -37,8 +35,6 @@ def r_messages(id):
 @app.route('/messages/project-search/<string:nombre_proyecto>', methods=['GET'])
 def project_search(nombre_proyecto):
     #Encontrar todos los correos enviados o recibidos por el projecto
-    #mongodb = client[MONGODATABASE]
-    #mensajes = mongodb.mensajes
     mails = []
     for mensaje in mensajes.find({'metadata.sender': nombre_proyecto},{"_id": 0}):
         mails.append(mensaje)
@@ -50,8 +46,6 @@ def project_search(nombre_proyecto):
 
 @app.route('/messages/content-search', methods=['GET'])
 def content_search():
-    #mongodb = client[MONGODATABASE]
-    #mensajes = mongodb.mensajes
     mensajes.create_index([('message', TEXT)])
     data = request.get_json()
     contenido = data['required'] #Para las frases
@@ -189,8 +183,6 @@ def id_generator():
 # DELETE methods
 @app.route('/messages/<string:id>', methods=['DELETE'])
 def d_messages(id):
-    #mongodb = client[MONGODATABASE]
-    #mensajes = mongodb.mensajes
     mail_borrado = mensajes.delete_one({"id": id})
     if mail_borrado.deleted_count == 0:
         return json.jsonify(), 404
@@ -202,18 +194,3 @@ def d_messages(id):
 
 if __name__ == '__main__':
     app.run()
-
-"""
-    MONGODATABASE = "test" #Recordar cambiar test por Grupo76
-    MONGOSERVER = "localhost"
-    MONGOPORT = 27017
-    client = MongoClient(MONGOSERVER, MONGOPORT)
-    mongodb = client[MONGODATABASE]
-
-    mensajes = mongodb.mensajes #Esto funciona pensando en que el importado está hecho
-
-
-    qfilter = mensajes.find({'mid': 1})
-    for mensaje in qfilter:
-        print(mensaje)
-"""
