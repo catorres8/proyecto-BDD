@@ -50,42 +50,56 @@ def content_search():
     data = request.get_json()
     contenido = data['required'] #Para las frases
 
-    frase_buscar = ""
-    lista_frases = contenido.split("-")
-    for frase in lista_frases:
-        frase_separada = frase.split(" ")
-        frase_mongo = '\"'
-        for palabra in frase_separada:
-            frase_mongo = frase_mongo + palabra
-            frase_mongo += '\"'
-        frase_buscar += frase_mongo
-    ####
-    palabras_no_deseadas = data['forbidden']
-    palabras_deseadas = data['desired']
-    palabras_no_deseadas_search = ""
-    palabras_deseadas_search = ""
-    palabras_no_deseadas = palabras_no_deseadas.split(" ")
-    palabras_deseadas = palabras_deseadas.split(" ")
-    for word in palabras_deseadas:
-        palabras_deseadas_search += word + " "
-    for word in palabras_no_deseadas:
-        palabras_no_deseadas_search += "-" + word
-    words_search = palabras_deseadas_search + " " + palabras_no_deseadas_search
-    print(words_search, "///", frase_buscar)
+    mails_required = required()
+    mails_d_f = desired_forbidden()
 
-    mails1 = set()
-    mails2 = set()
-    for m in mensajes.find({'$text': {'$search': words_search}}):
-        mails1.add(m)
-    for m in mensajes.find({'$text': {'$search': frase_buscar}}):
-        mails2.add(m)
-    print(mails1, "///", mails2)
-    mails = list(mails1 & mails2)
+    mails = mails_required & mails_d_f
 
     if len(mails) == 0:
         return json.jsonify(), 404
     else:
         return json.jsonify(mails), 200
+
+def required():
+    data = request.json["required"]
+    frase_required = ""
+    for i in range(len(data)):
+        if i == 0:
+            frase_required += f"\"{data[i]}\""
+        else:
+            frase_required += f" \"{data[i]}\""
+
+    mails = set()
+    for m in mensajes.find({'$text': {'$search': frase_required}}):
+        mails.add(m)
+
+    return mails
+
+def desired_forbidden():
+    data = request.json["desired"]
+    palabras_desired = ""
+    for i in range(len(data)):
+        if i == 0:
+            palabras_desired += f"{data[i]}"
+        else:
+            palabras_desired += f" {data[i]}"
+
+    data = request.json["forbidden"]
+
+    palabras_forbidden = ""
+    for i in range(len(data)):
+        if i == 0:
+            palabras_forbidden += f"-{data[i]}"
+        else:
+            palabras_forbidden += f" -{data[i]}"
+
+    palabras = palabras_desired + " " + palabras_forbidden
+
+    mails = set()
+    for m in mensajes.find({'$text': {'$search': palabras}}):
+        mails.add(m)
+
+    return mails
 
 # POST methods
 @app.route('/messages', methods=['POST'])
