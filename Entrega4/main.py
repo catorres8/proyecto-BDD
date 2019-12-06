@@ -50,13 +50,18 @@ def content_search():
     data = request.get_json()
     contenido = data['required'] #Para las frases
 
-    mails_required = required()
-    mails_d_f = desired_forbidden()
-    print(mails_required)
-    print(mails_d_f)
+    mails = []
+    frase_required = required()
+    palabras = desired_forbidden()
+    #a = {'$text': {"$and": [{'$search': frase_required}}, {'$search': palabras}]}}
+    #b = {"$and": [{'$text': {'$search': frase_required}}, {'$text': {'$search': palabras}}]}
+    for m in mensajes.find({'$text': {"$and": [{'$search': frase_required}}, {'$search': palabras}]}}, {'_id': 0}):
+        mails.append(m)
 
-    mails = [dic for dic in mails_required if dic in mails_d_f]
-    print(mails)
+    #print(mails_required)
+    #print(mails_d_f)
+
+    #mails = [dic for dic in mails_required if dic in mails_d_f]
 
     if len(mails) == 0:
         return json.jsonify(), 404
@@ -68,16 +73,21 @@ def required():
     frase_required = ""
     for i in range(len(data)):
         if i == 0:
-            frase_required += f"\"\\\"{data[i]}\\\""
+            frase_required += f"\"{data[i]}\""
         elif i == (len(data) - 1):
-            frase_required += f" \\\"{data[i]}\\\"\""
+            frase_required += f" \"{data[i]}\""
         else:
-            frase_required += f" \\\"{data[i]}\\\""
-    print(frase_required)
+            frase_required += f" \"{data[i]}\""
+    return frase_required
     mails = list()
-    for m in mensajes.find({'$text': {'$search': f"{frase_required}"}}, {'_id': 0}):
-        print(m)
-        mails.append(m)
+    forbidden = request.json["forbidden"]
+    for m in mensajes.find({'$text': {'$search': frase_required}}, {'_id': 0}):
+        for f in forbidden:
+            print(m["content"])
+            print(f)
+            if not f in m["content"]:
+                if not m in mails:
+                    mails.append(m)
 
     return mails
 
@@ -100,6 +110,7 @@ def desired_forbidden():
             palabras_forbidden += f' -{data[i]}'
 
     palabras = palabras_desired + palabras_forbidden
+    return palabras
     mails = list()
     for m in mensajes.find({'$text': {'$search': palabras}}, {'_id': 0}):
         mails.append(m)
